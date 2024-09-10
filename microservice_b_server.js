@@ -4,8 +4,6 @@ const app = express();
 const PORT = 3001;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }))
 
 async function aqiData(lat, lon, key) {
 
@@ -20,6 +18,7 @@ async function aqiData(lat, lon, key) {
 };
 
 app.post("/aqiData", (req, res) => {
+    res.set('Access-Control-Allow-Origin', 'alloweddomain.com')
     aqiData(req.body["lat"], req.body["lon"], req.body["key"]).then((data) =>
         res.send(data))
 })
